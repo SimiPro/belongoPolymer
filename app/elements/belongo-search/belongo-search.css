@@ -1,0 +1,15 @@
+#belongo_search {
+	top: 2%;
+	left: 35%;
+	position: fixed;
+}
+
+#belongo_search_field {
+	width: 350px;
+	height: 25px; 
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	border-radius: 3px;
+	
+}

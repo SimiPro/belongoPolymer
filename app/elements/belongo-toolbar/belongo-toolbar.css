@@ -1,0 +1,8 @@
+.green {
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 350px;
+  background: #70c26f;
+  z-index: -1;
+}

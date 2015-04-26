@@ -1,0 +1,97 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="feed-view" attributes="">
+  <template>
+    <link rel="stylesheet" href="feed-view.css">
+    
+     <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}">
+      
+      <section>
+
+        <div class="chip-container" hero-p on-tap="{{transition}}">
+<!--
+          <template repeat="{{items as item}}">
+
+            <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{selectedAlbum === item }}">
+              <div class="chip-top" style="background:{{item.color}};" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{selectedAlbum === item}}"></div>
+              <div class="chip-bottom">
+                <div class="chip-album-title">{{item.album}}</div>
+                <div class="chip-artist">{{item.artist}}</div>
+              </div>
+            </div>
+          </template>
+          -->
+          <template repeat="{{itemsFeed as feed}}">
+              <div class="chip" hero-id"{{feed.user}}" hero?="{{selectedFeed === feed}}">
+                <div class="chip-top" style="background:{{feed.color}}" hero-id="{{feed.user}}-{{feed.trip}}" hero?="{{selectedFeed === feed}}">
+                  <core-image style="width:300px; height:300px; background-color: {{feed.color}};" sizing="cover" preload fade src="{{feed.image}}"></core-image>
+                </div>
+                <div class="chip-bottom">
+                <div class="chip-user">{{feed.user}}</div>
+                <div class="chip-album-artist">{{feed.trip}}
+                   </div>
+              </div>
+          </template>
+
+        </div>
+      </section>
+
+      <section id="details">
+
+        <div class="card" layout horizontal hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}" hero on-tap="{{transition}}">
+          <div class="card-left" style="background:{{selectedAlbum.color}};" hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}-art" hero></div>
+          <div class="card-right" flex>
+            <div layout horizontal center>
+              <div>
+                <div class="card-icon" style="background:{{selectedAlbum.color}};"></div>
+              </div>
+              <div flex>
+                <div class="card-album-title">{{selectedAlbum.album}}</div>
+                <div class="card-album-artist">{{selectedAlbum.artist}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </core-animated-pages>
+
+  </template>
+  <script>
+    Polymer('feed-view', {
+
+      page: 0,
+
+      itemsFeed: [
+        { user:"user1", userphoto:'images/feed/user1/Tesla.jpg', image:'images/feed/user1/gran_canyon.jpg', comment: 'Jeh visited the gran canyon today!', trip:'my_USA_trip', color:"#f4db33" },
+        { user:"user2", userphoto:'images/feed/user2/1967.jpg', image:'images/feed/user2/china_great_wall.jpg', comment: 'Still on my trip trough china - visited the great wall today - it was awesome', trip:'my_china_trip', color:"#972ff8" },
+        { user:"user3", userphoto:'images/feed/user3/william_richards.jpeg', image:'images/feed/user3/pyramid_des_kukulcan.jpg', comment: 'My trip trough agypt - visited the pyramides today - it was crazy', trip:'my_agypt_trip', color:"#7dd6fe" },
+        { user:"user4", userphoto:'images/feed/user4/1933_united_states.jpeg', image:'images/feed/user4/china_shaolin.jpg', comment: 'Still on my trip trough china - visited the great wall today - it was awesome', trip:'my_china_trip', color:"#dc3c84" },
+        { user:"user5", userphoto:'images/feed/user5/hubert_humbhrey.jpg', image:'images/feed/user5/me_on_mounteverest.jpg', comment: 'Arrived the summit yet!', trip:'my_climb_of_everest', color:"#972ff8" },
+        { user:"user6", userphoto:'images/feed/user6/Niels_Bohr.jpg', image:'images/feed/user6/easter_island.jpg', comment: 'On visit the old stone men on the easter iland', trip:'my_see_trip', color:"#7dd6fe" }
+      ],
+
+      items: [
+        { artist: 'Tycho', album: 'Fragments', color: '#f4db33' },
+        { artist: 'Tycho', album: 'Past Prologue', color: '#972ff8' },
+        { artist: 'Tycho', album: 'Spectre', color: '#7dd6fe' },
+        { artist: 'Tycho', album: 'Awake', color: '#dc3c84' }
+      ],
+
+      selectedAlbum: null,
+
+      transition: function(e) {
+        if (this.page === 0 && e.target.templateInstance.model.item) {
+          this.selectedAlbum = e.target.templateInstance.model.item;
+          this.page = 1;
+        } else {
+          this.page = 0;
+        }
+      }
+    });
+
+
+    
+  </script>
+</polymer-element>
